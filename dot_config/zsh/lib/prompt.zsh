@@ -36,6 +36,7 @@ SPACESHIP_PROMPT_ORDER=(
 )
 
 SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_HOST_SHOW_FULL=true
 
 # update vi-mode when changing keymap
 eval spaceship_vi_mode_enable

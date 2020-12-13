@@ -1,0 +1,132 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+runtime ftplugin/man.vim
+
+call plug#begin('~/.vim/plugged')
+Plug 'altercation/vim-colors-solarized'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+{{ if eq .chezmoi.hostname "hitagi" -}}
+Plug 'airblade/vim-gitgutter'
+Plug 'cespare/vim-toml'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'majutsushi/tagbar'
+Plug 'rhysd/vim-clang-format'
+Plug 'rstacruz/sparkup'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'valloric/youcompleteme'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/indentpython.vim'
+{{ end -}}
+call plug#end()
+
+filetype plugin indent on
+syntax on
+colorscheme solarized
+
+if !has('nvim')
+  set autoindent
+  set autoread
+  set background=dark
+  set backspace=indent,eol,start
+  "set backupdir=.,~/.local/share/nvim/backup
+  set belloff=all
+  set nocompatible
+  set complete-=i
+  set cscopeverbose
+  "set directory=~/.local/share/nvim/swap//
+  set display=lastline,msgsep
+  set encoding=utf-8
+  "set fillchars=vert:│,fold:·,sep:│
+  set formatoptions+=j
+  set fsync
+  set history=10000
+  set hlsearch
+  set incsearch
+  set nolangremap
+  set laststatus=2
+  set listchars=tab:> ,trail:-,nbsp:+
+  set nrformats=bin,hex
+  set ruler
+  set sessionoptions-=options
+  set sessionoptions+=slash,unix
+  set shortmess+=F
+  set shortmess-=S
+  set showcmd
+  set sidescroll=1
+  set smarttab
+  set nostartofline
+  set tabpagemax=50
+  set tags=./tags;,tags
+  set ttimeoutlen=50
+  set ttyfast
+  set viewoptions+=slash,unix
+  "set undodir=~/.local/share/nvim/undo
+  set viminfo+=!
+  set wildmenu
+  set wildoptions=pum,tagfile
+endif
+
+set cursorline
+set foldlevelstart=20
+set hidden
+set ignorecase
+set mouse=
+set relativenumber
+set scrolloff=3
+set smartcase
+set updatetime=1000
+set wildmode=list:longest,full
+
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=4
+
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+map <Space> <Leader>
+inoremap jj <Esc>
+nnoremap <Leader>m :<C-U>exe 'Man' v:count '<cword>'<CR>
+nnoremap <Leader>q :bp<CR>:bd #<CR>
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+
+nnoremap <Leader>f :Files<CR>
+nmap <Leader><Tab> <Plug>(fzf-maps-n)
+xmap <Leader><Tab> <Plug>(fzf-maps-x)
+omap <Leader><Tab> <Plug>(fzf-maps-o)
+
+{{ if eq .chezmoi.hostname "hitagi" -}}
+autocmd FileType toml setlocal sw=4 sts=4
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+let g:DoxygenToolkit_briefTag_pre = ''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pycodestyle', 'pylint']
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+nnoremap <Leader>r :ClangFormat<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
+{{- end }}

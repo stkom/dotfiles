@@ -1,0 +1,33 @@
+HISTFILE="$ZDOTDIR/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+#KEYTIMEOUT=1
+#ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
+
+setopt auto_cd
+setopt complete_in_word
+setopt correct
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt share_history
+unsetopt beep
+unsetopt glob_dots
+
+alias e='$EDITOR'
+alias se=sudoedit
+alias ls='ls --color=auto'
+alias l='ls -Fhl'
+alias la='ls -aFhl'
+alias ll='ls -AFhl'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+export EDITOR=nvim
+export PAGER=less
+
+{{ if eq .chezmoi.hostname "hitagi" -}}
+export AURDEST=~/Build/aur
+export GPG_TTY=$(tty)
+{{ end -}}

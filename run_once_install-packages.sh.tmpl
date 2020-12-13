@@ -1,25 +1,20 @@
 {{- /* vim: set ft=sh: */ -}}
 #!/usr/bin/env bash
 
-install_cmd="
-{{- if eq .chezmoi.os "freebsd" -}}
-sudo pkg install
-{{- else if eq .chezmoi.osRelease.id "arch" -}}
-sudo pacman -S --noconfirm
-{{- else if eq .chezmoi.osRelease.id "debian" -}}
-sudo apt install -y
-{{- end -}}
-"
+die() {
+  echo "${1:-}" >&2
+  exit 1
+}
 
 check_bin() {
   local bin=$1
   local pkg=${2:-$1}
   if ! command -v $bin &> /dev/null; then
-    $install_cmd $pkg
+    die "missing binary $bin"
   fi
 }
 
-check_bin nvim neovim
+#check_bin git
 
 if [[ ! -e {{ .zdotdir }}/zgen ]]; then
   git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"

@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 install_cmd="
-{{- if eq .chezmoi.osRelease.id "debian" -}}
-sudo apt install -y
-{{- else if eq .chezmoi.osRelease.id "arch" -}}
+{{- if eq .chezmoi.osRelease.id "arch" -}}
 sudo pacman -S --noconfirm
+{{- else if eq .chezmoi.osRelease.id "debian" -}}
+sudo apt install -y
+{{- else if eq .chezmoi.os "freebsd" -}}
+sudo pkg install
 {{- end -}}
 "
 
@@ -16,7 +18,7 @@ check_bin() {
   fi
 }
 
-check_bin git
+check_bin nvim neovim
 
 if [[ ! -e {{ .zdotdir }}/zgen ]]; then
   git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"

@@ -60,7 +60,7 @@ export AURDEST=~/Build/aur
 export GPG_TTY=$(tty)
 {{- end }}
 
-{{ if eq .enable_fzf "true" -}}
+{{ if .enable_fzf -}}
 if [[ -e {{ .fzfdir }} ]]; then
   source "{{ .fzfdir }}/completion.zsh"
   source "{{ .fzfdir }}/key-bindings.zsh"
@@ -68,7 +68,7 @@ if [[ -e {{ .fzfdir }} ]]; then
 fi
 {{- end }}
 
-{{ if eq .enable_nvm "true" -}}
+{{ if .enable_nvm -}}
 NVM_SOURCE='{{ .nvmsrc }}'
 if [[ -e $NVM_SOURCE ]]; then
   export NVM_SOURCE

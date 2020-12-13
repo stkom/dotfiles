@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'jiangmiao/auto-pairs'
 
-{{ if eq .enable_fzf "true" -}}
+{{ if .enable_fzf -}}
 Plug 'junegunn/fzf.vim'
 {{- end }}
 
@@ -116,7 +116,7 @@ nnoremap <Leader>m :<C-U>exe 'Man' v:count '<cword>'<CR>
 nnoremap <Leader>q :bp<CR>:bd #<CR>
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
-{{ if eq .enable_fzf "true" -}}
+{{ if .enable_fzf -}}
 nnoremap <Leader>f :Files<CR>
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)

@@ -2,8 +2,8 @@
 {{- $enable_nvm := promptBool "enable nvm" -}}
 
 [data]
-enable_fzf = "{{ $enable_fzf }}"
-enable_nvm = "{{ $enable_nvm }}"
+enable_fzf = {{ $enable_fzf }}
+enable_nvm = {{ $enable_nvm }}
 fzfdir = "/usr/share/fzf"
 nvmdir = "$HOME/.local/share/nvm"
 nvmsrc = "/usr/share/nvm"

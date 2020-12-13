@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 install_cmd="
-{{- if eq .chezmoi.osRelease.id "arch" -}}
+{{- if eq .chezmoi.os "freebsd" -}}
+sudo pkg install
+{{- else if eq .chezmoi.osRelease.id "arch" -}}
 sudo pacman -S --noconfirm
 {{- else if eq .chezmoi.osRelease.id "debian" -}}
 sudo apt install -y
-{{- else if eq .chezmoi.os "freebsd" -}}
-sudo pkg install
 {{- end -}}
 "
 

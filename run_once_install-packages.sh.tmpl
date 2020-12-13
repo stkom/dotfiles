@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [[ ! -e {{ .zdotdir }}/zgen ]]; then
+  git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"
+fi

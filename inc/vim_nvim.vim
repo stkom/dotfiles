@@ -1,0 +1,44 @@
+if !has('nvim')
+  set autoindent
+  set autoread
+  set background=dark
+  set backspace=indent,eol,start
+  "set backupdir=.,~/.local/share/nvim/backup
+  set belloff=all
+  set nocompatible
+  set complete-=i
+  set cscopeverbose
+  "set directory=~/.local/share/nvim/swap//
+  "set display=lastline,msgsep
+  set display=lastline
+  set encoding=utf-8
+  "set fillchars=vert:│,fold:·,sep:│
+  set formatoptions+=j
+  set fsync
+  set history=10000
+  set hlsearch
+  set incsearch
+  set nolangremap
+  set laststatus=2
+  set listchars=tab:>\ ,trail:-,nbsp:+
+  set nrformats=bin,hex
+  set ruler
+  set sessionoptions-=options
+  set sessionoptions+=slash,unix
+  set shortmess+=F
+  set shortmess-=S
+  set showcmd
+  set sidescroll=1
+  set smarttab
+  set nostartofline
+  set tabpagemax=50
+  set tags=./tags;,tags
+  set ttimeoutlen=50
+  set ttyfast
+  set viewoptions+=slash,unix
+  "set undodir=~/.local/share/nvim/undo
+  set viminfo+=!
+  set wildmenu
+  "set wildoptions=pum,tagfile
+  set wildoptions=tagfile
+endif

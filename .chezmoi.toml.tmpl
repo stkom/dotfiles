@@ -1,9 +1,11 @@
 {{- $enable_fzf := promptBool "enable fzf" -}}
 {{- $enable_nvm := promptBool "enable nvm" -}}
+{{- $enable_vplug := promptBool "enable vim plugins" -}}
 
 [data]
 enable_fzf = {{ $enable_fzf }}
 enable_nvm = {{ $enable_nvm }}
+enable_vplug = {{ $enable_vplug }}
 fzfdir = "/usr/share/fzf"
 nvmdir = "$HOME/.local/share/nvm"
 nvmsrc = "/usr/share/nvm"

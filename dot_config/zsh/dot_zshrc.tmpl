@@ -9,11 +9,16 @@ if ! zgen saved; then
   {{- end }}
 
   my_zlib="$ZDOTDIR/lib"
+
   zgen load "$my_zlib/completion.zsh"
-  zgen load "$my_zlib/fzf.zsh"
   zgen load "$my_zlib/key_bindings.zsh"
   zgen load "$my_zlib/nvm.zsh"
   zgen load "$my_zlib/prompt.zsh"
+
+  {{ if eq .enable_fzf "true" -}}
+  zgen load "$my_zlib/fzf.zsh"
+  {{- end }}
+
   unset my_zlib
 
   zgen save

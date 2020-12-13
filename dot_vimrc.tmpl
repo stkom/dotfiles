@@ -9,7 +9,11 @@ runtime ftplugin/man.vim
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'jiangmiao/auto-pairs'
+
+{{ if eq .enable_fzf "true" -}}
 Plug 'junegunn/fzf.vim'
+{{- end }}
+
 Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-endwise'
@@ -111,10 +115,12 @@ nnoremap <Leader>m :<C-U>exe 'Man' v:count '<cword>'<CR>
 nnoremap <Leader>q :bp<CR>:bd #<CR>
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
+{{ if eq .enable_fzf "true" -}}
 nnoremap <Leader>f :Files<CR>
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
 omap <Leader><Tab> <Plug>(fzf-maps-o)
+{{- end }}
 
 {{ if eq .chezmoi.hostname "hitagi" -}}
 autocmd FileType toml setlocal sw=4 sts=4

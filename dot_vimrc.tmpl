@@ -62,7 +62,7 @@ if !has('nvim')
   set incsearch
   set nolangremap
   set laststatus=2
-  set listchars=tab:> ,trail:-,nbsp:+
+  set listchars=tab:>\ ,trail:-,nbsp:+
   set nrformats=bin,hex
   set ruler
   set sessionoptions-=options
@@ -81,7 +81,8 @@ if !has('nvim')
   "set undodir=~/.local/share/nvim/undo
   set viminfo+=!
   set wildmenu
-  set wildoptions=pum,tagfile
+  "set wildoptions=pum,tagfile
+  set wildoptions=tagfile
 endif
 
 set cursorline

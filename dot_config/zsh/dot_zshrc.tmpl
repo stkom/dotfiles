@@ -1,8 +1,34 @@
-HISTFILE="$ZDOTDIR/.zsh_history"
+source "$ZDOTDIR/zgen/zgen.zsh"
+
+if ! zgen saved; then
+  zgen load denysdovhan/spaceship-prompt spaceship
+
+  {{ if eq .chezmoi.hostname "hitagi" -}}
+  zgen load laggardkernel/git-ignore
+  zgen oh-my-zsh lib/clipboard.zsh
+  {{- end }}
+
+  my_zlib="$ZDOTDIR/lib"
+  zgen load "$my_zlib/completion.zsh"
+  zgen load "$my_zlib/fzf.zsh"
+  zgen load "$my_zlib/key_bindings.zsh"
+  zgen load "$my_zlib/nvm.zsh"
+  zgen load "$my_zlib/prompt.zsh"
+  unset my_zlib
+
+  zgen save
+fi
+
+HISTFILE="$ZDOTDIR/history"
 HISTSIZE=100000
 SAVEHIST=100000
-#KEYTIMEOUT=1
-#ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
+
+# for faster switching between vi modes
+KEYTIMEOUT=1
+
+# changes that '&|' don't remove space after completion
+# https://superuser.com/a/613817
+ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 setopt auto_cd
 setopt complete_in_word
@@ -13,6 +39,9 @@ setopt hist_reduce_blanks
 setopt share_history
 unsetopt beep
 unsetopt glob_dots
+
+#autoload -Uz bracketed-paste-url-magic
+#zle -N bracketed-paste bracketed-paste-url-magic
 
 alias e='$EDITOR'
 alias se=sudoedit
@@ -30,4 +59,4 @@ export PAGER=less
 {{ if eq .chezmoi.hostname "hitagi" -}}
 export AURDEST=~/Build/aur
 export GPG_TTY=$(tty)
-{{ end -}}
+{{- end }}

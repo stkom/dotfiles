@@ -12,8 +12,11 @@ if ! zgen saved; then
 
   zgen load "$my_zlib/completion.zsh"
   zgen load "$my_zlib/key_bindings.zsh"
-  zgen load "$my_zlib/nvm.zsh"
   zgen load "$my_zlib/prompt.zsh"
+
+  {{ if eq .enable_nvm "true" -}}
+  zgen load "$my_zlib/nvm.zsh"
+  {{- end }}
 
   {{ if eq .enable_fzf "true" -}}
   zgen load "$my_zlib/fzf.zsh"

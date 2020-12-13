@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+install_cmd="
+{{- if eq .chezmoi.osRelease.id "debian" -}}
+sudo apt install -y
+{{- else if eq .chezmoi.osRelease.id "arch" -}}
+sudo pacman -S --noconfirm
+{{- end -}}
+"
+
+check_bin() {
+  local bin=$1
+  local pkg=${2:-$1}
+  if ! command -v $bin &> /dev/null; then
+    $install_cmd $pkg
+  fi
+}
+
+check_bin git
+
 if [[ ! -e {{ .zdotdir }}/zgen ]]; then
   git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"
 fi

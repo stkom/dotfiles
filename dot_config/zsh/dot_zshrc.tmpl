@@ -10,19 +10,9 @@ if ! zgen saved; then
   {{- end }}
 
   my_zlib="$ZDOTDIR/lib"
-
   zgen load "$my_zlib/completion.zsh"
   zgen load "$my_zlib/key_bindings.zsh"
   zgen load "$my_zlib/prompt.zsh"
-
-  {{ if eq .enable_nvm "true" -}}
-  zgen load "$my_zlib/nvm.zsh"
-  {{- end }}
-
-  {{ if eq .enable_fzf "true" -}}
-  zgen load "$my_zlib/fzf.zsh"
-  {{- end }}
-
   unset my_zlib
 
   zgen save
@@ -68,4 +58,23 @@ export PAGER=less
 {{ if eq .chezmoi.hostname "hitagi" -}}
 export AURDEST=~/Build/aur
 export GPG_TTY=$(tty)
+{{- end }}
+
+{{ if eq .enable_fzf "true" -}}
+if [[ -e {{ .fzfdir }} ]]; then
+  source "{{ .fzfdir }}/completion.zsh"
+  source "{{ .fzfdir }}/key-bindings.zsh"
+  export FZF_DEFAULT_COMMAND='fd ""'
+fi
+{{- end }}
+
+{{ if eq .enable_nvm "true" -}}
+NVM_SOURCE='{{ .nvmsrc }}'
+if [[ -e $NVM_SOURCE ]]; then
+  export NVM_SOURCE
+  export NVM_DIR="{{ .nvmdir }}"
+  source "$NVM_SOURCE/nvm.sh" --no-use
+  source "$NVM_SOURCE/bash_completion"
+  source "$NVM_SOURCE/install-nvm-exec"
+fi
 {{- end }}

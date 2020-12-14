@@ -1,7 +1,7 @@
 inc/
 
 {{ if not .enable_vplug -}}
-.vim/pluginit.vim
+.vim/
 {{- end }}
 
 {{ if ne .chezmoi.hostname "hitagi" -}}

@@ -4,8 +4,10 @@ inc/
   .vim/
 {{- end }}
 
-{{ if eq .chezmoi.hostname "hitagi" -}}
-  .local/share/fzf/
-{{- else -}}
+{{ if ne .chezmoi.hostname "hitagi" -}}
   .gitconfig
+{{- end }}
+
+{{ if or (eq .chezmoi.os "freebsd") (eq .chezmoi.osRelease.id "arch") -}}
+  .local/share/fzf/
 {{- end }}

@@ -1,17 +1,29 @@
+{{- /* vim: set ft=toml: */ -}}
+
+{{- $editor := "nvim" -}}
+{{- $enable_fzf := true -}}
+{{- $enable_nvm := false -}}
+{{- $enable_vplug := true -}}
+{{- $fzfdir := "/usr/share/fzf" -}}
+
+{{- if eq .chezmoi.hostname "hitagi" -}}
+    {{- $enable_nvm = true -}}
+{{- else -}}
+    {{- $fzfdir = "$HOME/.local/share/fzf" -}}
+{{- end -}}
+
+{{- if eq .chezmoi.hostname "freenas" -}}
+    {{- $editor = "vim" -}}
+    {{- $enable_fzf = false -}}
+    {{- $enable_vplug = false -}}
+{{- end -}}
+
 [data]
-fzfdir = "/usr/share/fzf"
+editor = "{{ $editor }}"
+enable_fzf = {{ $enable_fzf }}
+enable_nvm = {{ $enable_nvm }}
+enable_vplug = {{ $enable_vplug }}
+fzfdir = "{{ $fzfdir }}"
 nvmdir = "$HOME/.local/share/nvm"
 nvmsrc = "/usr/share/nvm"
 zdotdir = "${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-
-{{ if ne .chezmoi.hostname "freenas" -}}
-editor = "nvim"
-enable_fzf = true
-enable_nvm = true
-enable_vplug = true
-{{- else -}}
-editor = "vim"
-enable_fzf = false
-enable_nvm = false
-enable_vplug = false
-{{- end }}

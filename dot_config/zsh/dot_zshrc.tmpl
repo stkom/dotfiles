@@ -25,7 +25,7 @@ SAVEHIST=100000
 # for faster switching between vi modes
 KEYTIMEOUT=1
 
-# changes that '&|' don't remove space after completion
+# don't remove space after completion
 # https://superuser.com/a/613817
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
@@ -39,9 +39,6 @@ setopt share_history
 unsetopt beep
 unsetopt glob_dots
 
-#autoload -Uz bracketed-paste-url-magic
-#zle -N bracketed-paste bracketed-paste-url-magic
-
 alias e='$EDITOR'
 alias se=sudoedit
 alias ls='ls --color=auto'
@@ -52,7 +49,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-export EDITOR=nvim
+export EDITOR={{ .editor }}
 export PAGER=less
 
 {{ if eq .chezmoi.hostname "hitagi" -}}

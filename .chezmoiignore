@@ -8,6 +8,10 @@ inc/
   .gitconfig
 {{- end }}
 
-{{ if or (eq .chezmoi.os "freebsd") (eq .chezmoi.osRelease.id "arch") -}}
+{{ if not (hasKey .chezmoi "osRelease") -}}
+  {{ set .chezmoi "osRelease" (dict "id" "") }}
+{{- end }}
+
+{{ if or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.os "freebsd") -}}
   .local/share/fzf/
 {{- end }}

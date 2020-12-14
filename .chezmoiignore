@@ -1,5 +1,5 @@
 inc/
 
-{{- if ne .chezmoi.hostname "hitagi" }}
+{{ if ne .chezmoi.hostname "hitagi" -}}
 .gitconfig
 {{- end }}

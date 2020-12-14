@@ -1,21 +1,24 @@
 {{- /* vim: set ft=toml: */ -}}
 
-{{- $editor := "nvim" -}}
-{{- $enable_fzf := true -}}
+{{- $editor := "vim" -}}
+{{- $enable_fzf := false -}}
 {{- $enable_nvm := false -}}
-{{- $enable_vplug := true -}}
-{{- $fzfdir := "/usr/share/fzf" -}}
+{{- $enable_vplug := false -}}
+{{- $fzfdir := "$HOME/.local/share/fzf" -}}
 
 {{- if eq .chezmoi.hostname "hitagi" -}}
     {{- $enable_nvm = true -}}
-{{- else -}}
-    {{- $fzfdir = "$HOME/.local/share/fzf" -}}
 {{- end -}}
 
-{{- if eq .chezmoi.hostname "freenas" -}}
-    {{- $editor = "vim" -}}
-    {{- $enable_fzf = false -}}
-    {{- $enable_vplug = false -}}
+{{- if eq .chezmoi.hostname "hitagi" "rem" "shell" -}}
+    {{- $editor = "nvim" -}}
+    {{- $enable_fzf = true -}}
+    {{- $enable_vplug = true -}}
+    {{- $fzfdir = "/usr/share/fzf" -}}
+{{- end -}}
+
+{{- if eq .chezmoi.os "freebsd" -}}
+    {{- $fzfdir = "/usr/local/share/examples/fzf/shell" -}}
 {{- end -}}
 
 [data]

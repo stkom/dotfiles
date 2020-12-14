@@ -1,9 +1,11 @@
 inc/
 
 {{ if not .enable_vplug -}}
-.vim/
+  .vim/
 {{- end }}
 
-{{ if ne .chezmoi.hostname "hitagi" -}}
-.gitconfig
+{{ if eq .chezmoi.hostname "hitagi" -}}
+  .local/share/fzf/
+{{- else -}}
+  .gitconfig
 {{- end }}

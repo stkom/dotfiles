@@ -12,7 +12,7 @@ nvmsrc = "/usr/share/nvm"
 zdotdir = "${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 {{ if eq .chezmoi.hostname "freenas" -}}
-editor = "nvim"
+editor = "vim"
 {{- else -}}
 editor = "nvim"
 {{- end }}

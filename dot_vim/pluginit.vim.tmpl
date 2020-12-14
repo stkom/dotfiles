@@ -1,0 +1,61 @@
+{{- /* vim: set ft=vim: */ -}}
+
+call plug#begin('~/.vim/plugged')
+Plug 'altercation/vim-colors-solarized'
+Plug 'jiangmiao/auto-pairs'
+{{ if .enable_fzf -}}Plug 'junegunn/fzf.vim'{{- end }}
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+{{ if eq .chezmoi.hostname "hitagi" -}}
+Plug 'airblade/vim-gitgutter'
+Plug 'cespare/vim-toml'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'majutsushi/tagbar'
+Plug 'rhysd/vim-clang-format'
+Plug 'rstacruz/sparkup'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'valloric/youcompleteme'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/indentpython.vim'
+{{- end }}
+call plug#end()
+
+colorscheme solarized
+
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+{{ if eq .chezmoi.hostname "hitagi" -}}
+let g:DoxygenToolkit_briefTag_pre = ''
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pycodestyle', 'pylint']
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+autocmd FileType toml setlocal sw=4 sts=4
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+nnoremap <Leader>r :ClangFormat<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
+{{- end }}
+
+{{ if .enable_fzf -}}
+nnoremap <Leader>f :Files<CR>
+nmap <Leader><Tab> <Plug>(fzf-maps-n)
+xmap <Leader><Tab> <Plug>(fzf-maps-x)
+omap <Leader><Tab> <Plug>(fzf-maps-o)
+{{- end }}

@@ -1,5 +1,9 @@
 inc/
 
+{{ if not .enable_vplug -}}
+.vim/pluginit.vim
+{{- end }}
+
 {{ if ne .chezmoi.hostname "hitagi" -}}
 .gitconfig
 {{- end }}

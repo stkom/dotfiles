@@ -7,18 +7,17 @@
 {{- $fzfdir := "$HOME/.local/share/fzf" -}}
 
 {{- if eq .chezmoi.hostname "hitagi" -}}
-    {{- $enable_nvm = true -}}
-{{- end -}}
-
-{{- if eq .chezmoi.hostname "hitagi" "rem" "shell" -}}
     {{- $editor = "nvim" -}}
     {{- $enable_fzf = true -}}
+    {{- $enable_nvm = true -}}
     {{- $enable_vplug = true -}}
     {{- $fzfdir = "/usr/share/fzf" -}}
 {{- end -}}
 
 {{- if eq .chezmoi.os "freebsd" -}}
     {{- $fzfdir = "/usr/local/share/examples/fzf/shell" -}}
+{{- else if eq .chezmoi.osRelease.id "debian" -}}
+    {{- $fzfdir = "/usr/share/doc/fzf/examples" -}}
 {{- end -}}
 
 [data]

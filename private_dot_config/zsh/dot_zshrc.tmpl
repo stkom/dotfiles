@@ -11,7 +11,7 @@ if ! zgen saved; then
 
   my_zlib="$ZDOTDIR/lib"
   zgen load "$my_zlib/completion.zsh"
-  zgen load "$my_zlib/key_bindings.zsh"
+  zgen load "$my_zlib/key-bindings.zsh"
   zgen load "$my_zlib/prompt.zsh"
   unset my_zlib
 
@@ -58,10 +58,16 @@ export GPG_TTY=$(tty)
 {{- end }}
 
 {{ if .enable_fzf -}}
-if [[ -e {{ .fzfdir }} ]]; then
+if [[ -e {{ .fzfdir }}/completion.zsh ]]; then
   source "{{ .fzfdir }}/completion.zsh"
+fi
+if [[ -e {{ .fzfdir }}/key-bindings.zsh ]]; then
   source "{{ .fzfdir }}/key-bindings.zsh"
+fi
+if command -v fd &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd ""'
+elif command -v fdfind &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='fdfind ""'
 fi
 {{- end }}
 

@@ -16,6 +16,7 @@ check_bin() {
 
 check_bin git
 check_bin zsh
+check_bin {{ .editor }}
 
 if [[ ! -e {{ .zdotdir }}/zgen ]]; then
   git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"

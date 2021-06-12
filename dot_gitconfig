@@ -1,6 +1,8 @@
+[init]
+	defaultBranch = main
 [pull]
 	ff = only
 [user]
 	name = Stephan Komp
 	email = komp.stephan@gmail.com
-	signingkey = 98F559684FBA93C4
+	signingkey = 49166A81B0CA28EF

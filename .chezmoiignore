@@ -3,3 +3,5 @@ inc/
 {{ if not .enable_vplug -}}
   .vim/
 {{- end }}
+
+README.md

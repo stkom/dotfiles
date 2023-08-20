@@ -23,20 +23,14 @@ SPACESHIP_PROMPT_ORDER=(
   gcloud        # Google Cloud Platform section
   venv          # virtualenv section
   conda         # conda virtualenv section
-  pyenv         # Pyenv section
   dotnet        # .NET section
-  ember         # Ember.js section
   kubectl       # Kubectl context section
   terraform     # Terraform workspace section
   line_sep      # Line break
   battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   char          # Prompt character
 )
 
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_HOST_SHOW_FULL=true
-
-# update vi-mode when changing keymap
-eval spaceship_vi_mode_enable

@@ -1,20 +1,3 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -60,30 +43,52 @@ map("v", "J", ":m '>+1<cr>gv=gv")
 map("v", "K", ":m '>-2<cr>gv=gv")
 map("n", "J", "mzJ`z")
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    { "neovim/nvim-lspconfig" },
-    { "rose-pine/neovim", name = "rose-pine" },
-    {
-      "nvim-lualine/lualine.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons" },
+-- Plugins (lazy.nvim needs nvim 0.8+)
+if vim.fn.has("nvim-0.8") == 1 then
+  -- Bootstrap lazy.nvim
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+        { out, "WarningMsg" },
+        { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  -- Setup lazy.nvim
+  require("lazy").setup({
+    spec = {
+      { "neovim/nvim-lspconfig" },
+      { "rose-pine/neovim", name = "rose-pine" },
+      {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+      },
     },
-  },
-})
+  })
 
-require("rose-pine").setup({
-  styles = {
-    --    transparency = true
-  },
-})
+  require("rose-pine").setup({
+    styles = {
+      --    transparency = true
+    },
+  })
 
-require("lualine").setup({
-  --  options = { theme = "solarized_dark" },
-})
+  require("lualine").setup({
+    --  options = { theme = "solarized_dark" },
+  })
 
-vim.cmd.colorscheme("rose-pine")
+  vim.cmd.colorscheme("rose-pine")
+end
 
--- LSP
-vim.lsp.config("gopls", {})
-vim.lsp.enable("gopls")
+-- LSP (vim.lsp.config needs nvim 0.11+)
+if vim.fn.has("nvim-0.11") == 1 then
+  vim.lsp.config("gopls", {})
+  vim.lsp.enable("gopls")
+end

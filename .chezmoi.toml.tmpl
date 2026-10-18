@@ -1,19 +1,13 @@
 {{- /* vim: set ft=toml: */ -}}
 
-{{- $editor := "vim" -}}
-{{- $enable_fzf := false -}}
+{{- $editor := "nvim" -}}
+{{- $enable_fzf := true -}}
 {{- $enable_nvm := false -}}
-{{- $fzfdir := "$HOME/.local/share/fzf" -}}
-
-{{- if eq .chezmoi.hostname "hitagi" -}}
-    {{- $editor = "nvim" -}}
-    {{- $enable_fzf = true -}}
-    {{- $fzfdir = "/usr/share/fzf" -}}
-{{- end -}}
+{{- $fzfdir := "/usr/share/fzf" -}}
 
 {{- if eq .chezmoi.os "freebsd" -}}
     {{- $fzfdir = "/usr/local/share/examples/fzf/shell" -}}
-{{- else if eq .chezmoi.osRelease.id "debian" -}}
+{{- else if has .chezmoi.osRelease.id (list "debian" "ubuntu") -}}
     {{- $fzfdir = "/usr/share/doc/fzf/examples" -}}
 {{- end -}}
 

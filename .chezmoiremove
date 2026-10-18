@@ -4,3 +4,6 @@
 
 # zsh libs moved from lib/ to $ZDOTDIR
 .config/zsh/lib
+
+# nvim uses init.lua everywhere; nvim refuses to start if both exist
+.config/nvim/init.vim

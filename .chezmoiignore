@@ -2,10 +2,8 @@ inc/
 
 {{ if eq .chezmoi.hostname "hitagi" -}}
 .vimrc
-.config/nvim/init.vim
 {{- else -}}
 .bashrc
-.config/nvim/init.lua
 {{- end }}
 
 README.md

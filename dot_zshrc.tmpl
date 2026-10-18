@@ -1,19 +1,15 @@
 {{- /* vim: set ft=sh: */ -}}
-source "$ZDOTDIR/zgen/zgen.zsh"
+ZDOTDIR="{{ .zdotdir }}"
+
+ZGEN_DIR="$ZDOTDIR/zgen"
+source "$ZGEN_DIR/zgen.zsh"
 
 if ! zgen saved; then
   zgen load denysdovhan/spaceship-prompt spaceship
 
-  {{ if eq .chezmoi.hostname "hitagi" -}}
-  zgen load laggardkernel/git-ignore
-  zgen oh-my-zsh lib/clipboard.zsh
-  {{- end }}
-
-  my_zlib="$ZDOTDIR/lib"
-  zgen load "$my_zlib/completion.zsh"
-  zgen load "$my_zlib/key-bindings.zsh"
-  zgen load "$my_zlib/prompt.zsh"
-  unset my_zlib
+  zgen load "$ZDOTDIR/completion.zsh"
+  zgen load "$ZDOTDIR/key-bindings.zsh"
+  zgen load "$ZDOTDIR/prompt.zsh"
 
   zgen save
 fi
@@ -39,6 +35,7 @@ setopt share_history
 unsetopt beep
 unsetopt glob_dots
 
+typeset -U path
 path+=("$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.dotnet/tools" "$HOME/.go/bin")
 
 alias e='$EDITOR'
@@ -52,12 +49,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 export EDITOR={{ .editor }}
+export VISUAL={{ .editor }}
 export PAGER=less
-
-{{ if eq .chezmoi.hostname "hitagi" -}}
-export AURDEST=~/Build/aur
-export GPG_TTY=$(tty)
-{{- end }}
 
 {{ if .enable_fzf -}}
 if [[ -e {{ .fzfdir }}/completion.zsh ]]; then
@@ -73,13 +66,17 @@ elif command -v fdfind &> /dev/null; then
 fi
 {{- end }}
 
-{{ if .enable_nvm -}}
+{{- if .enable_nvm }}
+
 NVM_SOURCE='{{ .nvmsrc }}'
 if [[ -e $NVM_SOURCE ]]; then
   export NVM_SOURCE
   export NVM_DIR="{{ .nvmdir }}"
   source "$NVM_SOURCE/nvm.sh" --no-use
   source "$NVM_SOURCE/bash_completion"
-  source "$NVM_SOURCE/install-nvm-exec"
 fi
 {{- end }}
+
+if command -v fastfetch &> /dev/null; then
+  fastfetch
+fi

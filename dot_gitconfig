@@ -7,3 +7,5 @@
 [user]
 	name = Stephan Komp
 	email = komp.stephan@gmail.com
+[rebase]
+	autoSquash = true

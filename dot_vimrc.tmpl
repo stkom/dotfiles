@@ -25,11 +25,6 @@ filetype plugin indent on
 syntax on
 {{- end }}
 
-{{ if .enable_vplug -}}
-runtime plug.vim
-runtime pluginit.vim
-{{- end }}
-
 map <Space> <Leader>
 inoremap jj <Esc>
 nnoremap <Leader>m :<C-U>exe 'Man' v:count '<cword>'<CR>

@@ -52,7 +52,7 @@ zstyle ':completion:*:*:-subscript-:*'  tag-order indexes parameters
 # complete manual by their section
 zstyle ':completion:*:man:*'            menu yes select
 zstyle ':completion:*:manuals'          separate-sections true
-zstyle ':completion:*:manuals.(^1*)'    insert-sections true
+zstyle ':completion:*:manuals.*'        insert-sections true
 
 # ignore completion functions for commands you don't have
 zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'

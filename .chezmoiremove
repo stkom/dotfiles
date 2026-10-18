@@ -1,0 +1,6 @@
+# replaced by ~/.zshrc, which sets ZDOTDIR itself
+.zshenv
+.config/zsh/.zshrc
+
+# zsh libs moved from lib/ to $ZDOTDIR
+.config/zsh/lib

@@ -38,7 +38,7 @@ abbreviations=(
 'P'   "| $PAGER"
 'S'   '| sort'
 'T'   '| tail'
-'V'   '|& vim -'
+'V'   "|& $EDITOR -"
 'X'   '| xargs'
 )
 

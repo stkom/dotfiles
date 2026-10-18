@@ -1,8 +1,4 @@
-inc/
-
-{{ if eq .chezmoi.hostname "hitagi" -}}
-.vimrc
-{{- else -}}
+{{ if ne .chezmoi.hostname "hitagi" -}}
 .bashrc
 {{- end }}
 

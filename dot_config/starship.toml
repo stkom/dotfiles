@@ -1,0 +1,31 @@
+# Same sections and order as the previous spaceship prompt
+format = """
+$status\
+$cmd_duration\
+$username\
+$directory\
+$hostname\
+$git_branch\
+$git_status\
+$package\
+$nodejs\
+$golang\
+$rust\
+$docker_context\
+$python\
+$conda\
+$dotnet\
+$kubernetes\
+$line_break\
+$battery\
+$jobs\
+$character"""
+
+[status]
+disabled = false
+
+[hostname]
+trim_at = ""
+
+[kubernetes]
+disabled = false

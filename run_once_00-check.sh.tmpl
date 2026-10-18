@@ -1,23 +1,9 @@
 {{- /* vim: set ft=sh: */ -}}
 #!/usr/bin/env bash
+# Warn about programs the dotfiles expect but that are not installed
 
-die() {
-  echo "${1:-}" >&2
-  exit 1
-}
-
-check_bin() {
-  local bin=$1
-  local pkg=${2:-$1}
-  if ! command -v $bin &> /dev/null; then
-    die "missing binary $bin"
+for bin in git zsh {{ .editor }} fzf starship; do
+  if ! command -v "$bin" &> /dev/null; then
+    echo "warning: $bin is not installed" >&2
   fi
-}
-
-check_bin git
-check_bin zsh
-check_bin {{ .editor }}
-
-if [[ ! -e {{ .zdotdir }}/zgen ]]; then
-  git clone https://github.com/tarjoilija/zgen.git "{{ .zdotdir }}/zgen"
-fi
+done

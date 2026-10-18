@@ -1,0 +1,20 @@
+{{- /* vim: set ft=sh: */ -}}
+# Shared by bash and zsh
+
+for d in "$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.dotnet/tools" "$HOME/.go/bin"; do
+  case ":$PATH:" in *":$d:"*) ;; *) PATH="$PATH:$d" ;; esac
+done
+unset d
+export PATH
+
+export EDITOR={{ .editor }}
+export VISUAL={{ .editor }}
+export PAGER=less
+
+alias e='$EDITOR'
+alias se=sudoedit
+alias ls='ls --color=auto'
+alias l='ls -Fhl'
+alias la='ls -aFhl'
+alias ll='ls -AFhl'
+alias grep='grep --color=auto'

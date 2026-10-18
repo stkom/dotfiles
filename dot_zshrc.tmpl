@@ -1,18 +1,12 @@
 {{- /* vim: set ft=sh: */ -}}
 ZDOTDIR="{{ .zdotdir }}"
 
-ZGEN_DIR="$ZDOTDIR/zgen"
-source "$ZGEN_DIR/zgen.zsh"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/common.sh"
 
-if ! zgen saved; then
-  zgen load denysdovhan/spaceship-prompt spaceship
+source "$ZDOTDIR/completion.zsh"
+source "$ZDOTDIR/key-bindings.zsh"
 
-  zgen load "$ZDOTDIR/completion.zsh"
-  zgen load "$ZDOTDIR/key-bindings.zsh"
-  zgen load "$ZDOTDIR/prompt.zsh"
-
-  zgen save
-fi
+autoload -Uz compinit && compinit
 
 HISTFILE="$ZDOTDIR/history"
 HISTSIZE=100000
@@ -34,23 +28,6 @@ setopt hist_reduce_blanks
 setopt share_history
 unsetopt beep
 unsetopt glob_dots
-
-typeset -U path
-path+=("$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.dotnet/tools" "$HOME/.go/bin")
-
-alias e='$EDITOR'
-alias se=sudoedit
-alias ls='ls --color=auto'
-alias l='ls -Fhl'
-alias la='ls -aFhl'
-alias ll='ls -AFhl'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-export EDITOR={{ .editor }}
-export VISUAL={{ .editor }}
-export PAGER=less
 
 {{ if .enable_fzf -}}
 if [[ -e {{ .fzfdir }}/completion.zsh ]]; then
@@ -76,6 +53,12 @@ if [[ -e $NVM_SOURCE ]]; then
   source "$NVM_SOURCE/bash_completion"
 fi
 {{- end }}
+
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+else
+  PROMPT='%(?..%F{red}%?%f )[%n@%m %1~]%# '
+fi
 
 if command -v fastfetch &> /dev/null; then
   fastfetch

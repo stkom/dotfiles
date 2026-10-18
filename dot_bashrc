@@ -2,24 +2,13 @@
 # ~/.bashrc
 #
 
-for d in "$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.dotnet/tools" "$HOME/.go/bin"; do
-  case ":$PATH:" in *":$d:"*) ;; *) PATH="$PATH:$d" ;; esac
-done
-export PATH
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/common.sh"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-PS1='[\u@\h \W]\$ '
-
-export EDITOR=nvim
-export VISUAL=nvim
-export PAGER=less
-
-alias e='nvim'
-alias se='sudoedit'
-alias ls='ls --color=auto'
-alias l='ls -Fhl'
-alias la='ls -aFhl'
-alias ll='ls -AFhl'
-alias grep='grep --color=auto'
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+else
+  PS1='[\u@\h \W]\$ '
+fi
